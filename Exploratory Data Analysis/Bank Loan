@@ -1,0 +1,1465 @@
+1. Importing Libraries
+# Supress Warnings
+import warnings
+warnings.filterwarnings('ignore')
+# Importing all the necessary libraries
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import itertools 
+%matplotlib inline
+import random
+pd.set_option("max_rows", None)
+pd.set_option('display.max_columns', 500)
+Reading Data from File
+# Read data from file 'application_data.csv' 
+ad = pd.read_csv('application_data.csv')
+# Preview of the loaded data
+ad.head()
+
+# Read data from file 'previous_application.csv' 
+pa = pd.read_csv('previous_application.csv')
+
+# Preview of the loaded data
+pa.head()
+
+# Read data from file 'columns_description.csv' 
+di = pd.read_csv('columns_description.csv', encoding='cp1252')
+
+# Preview of the loaded data
+di.head()
+
+Dataset "application_data.csv"
+1. Reading Dataset
+# Read data from file 'application_data.csv' 
+ad = pd.read_csv('application_data.csv')
+# Preview of the loaded data
+ad.head()
+
+2. Understanding Dataset
+# Checking the number of rows and coloums of the given datset
+ad.shape
+(307511, 122)
+# Information about the rows and coloums of the given dataset
+
+ad.info("all")
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 307511 entries, 0 to 307510
+Data columns (total 122 columns):
+ #    Column                        Dtype  
+---   ------                        -----  
+ 0    SK_ID_CURR                    int64  
+ 1    TARGET                        int64  
+ 2    NAME_CONTRACT_TYPE            object 
+ 3    CODE_GENDER                   object 
+ 4    FLAG_OWN_CAR                  object 
+ 5    FLAG_OWN_REALTY               object 
+ 6    CNT_CHILDREN                  int64  
+ 7    AMT_INCOME_TOTAL              float64
+ 8    AMT_CREDIT                    float64
+ 9    AMT_ANNUITY                   float64
+ 10   AMT_GOODS_PRICE               float64
+ 11   NAME_TYPE_SUITE               object 
+ 12   NAME_INCOME_TYPE              object 
+ 13   NAME_EDUCATION_TYPE           object 
+ 14   NAME_FAMILY_STATUS            object 
+ 15   NAME_HOUSING_TYPE             object 
+ 16   REGION_POPULATION_RELATIVE    float64
+ 17   DAYS_BIRTH                    int64  
+ 18   DAYS_EMPLOYED                 int64  
+ 19   DAYS_REGISTRATION             float64
+ 20   DAYS_ID_PUBLISH               int64  
+ 21   OWN_CAR_AGE                   float64
+ 22   FLAG_MOBIL                    int64  
+ 23   FLAG_EMP_PHONE                int64  
+ 24   FLAG_WORK_PHONE               int64  
+ 25   FLAG_CONT_MOBILE              int64  
+ 26   FLAG_PHONE                    int64  
+ 27   FLAG_EMAIL                    int64  
+ 28   OCCUPATION_TYPE               object 
+ 29   CNT_FAM_MEMBERS               float64
+ 30   REGION_RATING_CLIENT          int64  
+ 31   REGION_RATING_CLIENT_W_CITY   int64  
+ 32   WEEKDAY_APPR_PROCESS_START    object 
+ 33   HOUR_APPR_PROCESS_START       int64  
+ 34   REG_REGION_NOT_LIVE_REGION    int64  
+ 35   REG_REGION_NOT_WORK_REGION    int64  
+ 36   LIVE_REGION_NOT_WORK_REGION   int64  
+ 37   REG_CITY_NOT_LIVE_CITY        int64  
+ 38   REG_CITY_NOT_WORK_CITY        int64  
+ 39   LIVE_CITY_NOT_WORK_CITY       int64  
+ 40   ORGANIZATION_TYPE             object 
+ 41   EXT_SOURCE_1                  float64
+ 42   EXT_SOURCE_2                  float64
+ 43   EXT_SOURCE_3                  float64
+ 44   APARTMENTS_AVG                float64
+ 45   BASEMENTAREA_AVG              float64
+ 46   YEARS_BEGINEXPLUATATION_AVG   float64
+ 47   YEARS_BUILD_AVG               float64
+ 48   COMMONAREA_AVG                float64
+ 49   ELEVATORS_AVG                 float64
+ 50   ENTRANCES_AVG                 float64
+ 51   FLOORSMAX_AVG                 float64
+ 52   FLOORSMIN_AVG                 float64
+ 53   LANDAREA_AVG                  float64
+ 54   LIVINGAPARTMENTS_AVG          float64
+ 55   LIVINGAREA_AVG                float64
+ 56   NONLIVINGAPARTMENTS_AVG       float64
+ 57   NONLIVINGAREA_AVG             float64
+ 58   APARTMENTS_MODE               float64
+ 59   BASEMENTAREA_MODE             float64
+ 60   YEARS_BEGINEXPLUATATION_MODE  float64
+ 61   YEARS_BUILD_MODE              float64
+ 62   COMMONAREA_MODE               float64
+ 63   ELEVATORS_MODE                float64
+ 64   ENTRANCES_MODE                float64
+ 65   FLOORSMAX_MODE                float64
+ 66   FLOORSMIN_MODE                float64
+ 67   LANDAREA_MODE                 float64
+ 68   LIVINGAPARTMENTS_MODE         float64
+ 69   LIVINGAREA_MODE               float64
+ 70   NONLIVINGAPARTMENTS_MODE      float64
+ 71   NONLIVINGAREA_MODE            float64
+ 72   APARTMENTS_MEDI               float64
+ 73   BASEMENTAREA_MEDI             float64
+ 74   YEARS_BEGINEXPLUATATION_MEDI  float64
+ 75   YEARS_BUILD_MEDI              float64
+ 76   COMMONAREA_MEDI               float64
+ 77   ELEVATORS_MEDI                float64
+ 78   ENTRANCES_MEDI                float64
+ 79   FLOORSMAX_MEDI                float64
+ 80   FLOORSMIN_MEDI                float64
+ 81   LANDAREA_MEDI                 float64
+ 82   LIVINGAPARTMENTS_MEDI         float64
+ 83   LIVINGAREA_MEDI               float64
+ 84   NONLIVINGAPARTMENTS_MEDI      float64
+ 85   NONLIVINGAREA_MEDI            float64
+ 86   FONDKAPREMONT_MODE            object 
+ 87   HOUSETYPE_MODE                object 
+ 88   TOTALAREA_MODE                float64
+ 89   WALLSMATERIAL_MODE            object 
+ 90   EMERGENCYSTATE_MODE           object 
+ 91   OBS_30_CNT_SOCIAL_CIRCLE      float64
+ 92   DEF_30_CNT_SOCIAL_CIRCLE      float64
+ 93   OBS_60_CNT_SOCIAL_CIRCLE      float64
+ 94   DEF_60_CNT_SOCIAL_CIRCLE      float64
+ 95   DAYS_LAST_PHONE_CHANGE        float64
+ 96   FLAG_DOCUMENT_2               int64  
+ 97   FLAG_DOCUMENT_3               int64  
+ 98   FLAG_DOCUMENT_4               int64  
+ 99   FLAG_DOCUMENT_5               int64  
+ 100  FLAG_DOCUMENT_6               int64  
+ 101  FLAG_DOCUMENT_7               int64  
+ 102  FLAG_DOCUMENT_8               int64  
+ 103  FLAG_DOCUMENT_9               int64  
+ 104  FLAG_DOCUMENT_10              int64  
+ 105  FLAG_DOCUMENT_11              int64  
+ 106  FLAG_DOCUMENT_12              int64  
+ 107  FLAG_DOCUMENT_13              int64  
+ 108  FLAG_DOCUMENT_14              int64  
+ 109  FLAG_DOCUMENT_15              int64  
+ 110  FLAG_DOCUMENT_16              int64  
+ 111  FLAG_DOCUMENT_17              int64  
+ 112  FLAG_DOCUMENT_18              int64  
+ 113  FLAG_DOCUMENT_19              int64  
+ 114  FLAG_DOCUMENT_20              int64  
+ 115  FLAG_DOCUMENT_21              int64  
+ 116  AMT_REQ_CREDIT_BUREAU_HOUR    float64
+ 117  AMT_REQ_CREDIT_BUREAU_DAY     float64
+ 118  AMT_REQ_CREDIT_BUREAU_WEEK    float64
+ 119  AMT_REQ_CREDIT_BUREAU_MON     float64
+ 120  AMT_REQ_CREDIT_BUREAU_QRT     float64
+ 121  AMT_REQ_CREDIT_BUREAU_YEAR    float64
+dtypes: float64(65), int64(41), object(16)
+memory usage: 286.2+ MB
+Observation There are 305711 rows and 122 columns of different data types.
+# Description of the given dataset
+ad.describe()
+
+Observation
+307511 rows and 122 columns.
+Standardising is required for the columns having very high values.
+Columns including days have positive , negative values which needs to be change.
+3. Data Cleaning & Manipulation
+# Finding out number of null values by creating a function for the given dataframe
+
+def null_values(df):
+    return round((df.isnull().sum()*100/len(df)).sort_values(ascending = False),2)
+null_values(ad)
+COMMONAREA_MEDI                 69.87
+COMMONAREA_AVG                  69.87
+COMMONAREA_MODE                 69.87
+NONLIVINGAPARTMENTS_MODE        69.43
+NONLIVINGAPARTMENTS_AVG         69.43
+NONLIVINGAPARTMENTS_MEDI        69.43
+FONDKAPREMONT_MODE              68.39
+LIVINGAPARTMENTS_MODE           68.35
+LIVINGAPARTMENTS_AVG            68.35
+LIVINGAPARTMENTS_MEDI           68.35
+FLOORSMIN_AVG                   67.85
+FLOORSMIN_MODE                  67.85
+FLOORSMIN_MEDI                  67.85
+YEARS_BUILD_MEDI                66.50
+YEARS_BUILD_MODE                66.50
+YEARS_BUILD_AVG                 66.50
+OWN_CAR_AGE                     65.99
+LANDAREA_MEDI                   59.38
+LANDAREA_MODE                   59.38
+LANDAREA_AVG                    59.38
+BASEMENTAREA_MEDI               58.52
+BASEMENTAREA_AVG                58.52
+BASEMENTAREA_MODE               58.52
+EXT_SOURCE_1                    56.38
+NONLIVINGAREA_MODE              55.18
+NONLIVINGAREA_AVG               55.18
+NONLIVINGAREA_MEDI              55.18
+ELEVATORS_MEDI                  53.30
+ELEVATORS_AVG                   53.30
+ELEVATORS_MODE                  53.30
+WALLSMATERIAL_MODE              50.84
+APARTMENTS_MEDI                 50.75
+APARTMENTS_AVG                  50.75
+APARTMENTS_MODE                 50.75
+ENTRANCES_MEDI                  50.35
+ENTRANCES_AVG                   50.35
+ENTRANCES_MODE                  50.35
+LIVINGAREA_AVG                  50.19
+LIVINGAREA_MODE                 50.19
+LIVINGAREA_MEDI                 50.19
+HOUSETYPE_MODE                  50.18
+FLOORSMAX_MODE                  49.76
+FLOORSMAX_MEDI                  49.76
+FLOORSMAX_AVG                   49.76
+YEARS_BEGINEXPLUATATION_MODE    48.78
+YEARS_BEGINEXPLUATATION_MEDI    48.78
+YEARS_BEGINEXPLUATATION_AVG     48.78
+TOTALAREA_MODE                  48.27
+EMERGENCYSTATE_MODE             47.40
+OCCUPATION_TYPE                 31.35
+EXT_SOURCE_3                    19.83
+AMT_REQ_CREDIT_BUREAU_HOUR      13.50
+AMT_REQ_CREDIT_BUREAU_DAY       13.50
+AMT_REQ_CREDIT_BUREAU_WEEK      13.50
+AMT_REQ_CREDIT_BUREAU_MON       13.50
+AMT_REQ_CREDIT_BUREAU_QRT       13.50
+AMT_REQ_CREDIT_BUREAU_YEAR      13.50
+NAME_TYPE_SUITE                  0.42
+OBS_30_CNT_SOCIAL_CIRCLE         0.33
+DEF_30_CNT_SOCIAL_CIRCLE         0.33
+OBS_60_CNT_SOCIAL_CIRCLE         0.33
+DEF_60_CNT_SOCIAL_CIRCLE         0.33
+EXT_SOURCE_2                     0.21
+AMT_GOODS_PRICE                  0.09
+AMT_ANNUITY                      0.00
+CNT_FAM_MEMBERS                  0.00
+DAYS_LAST_PHONE_CHANGE           0.00
+CNT_CHILDREN                     0.00
+FLAG_DOCUMENT_8                  0.00
+NAME_CONTRACT_TYPE               0.00
+CODE_GENDER                      0.00
+FLAG_OWN_CAR                     0.00
+FLAG_DOCUMENT_2                  0.00
+FLAG_DOCUMENT_3                  0.00
+FLAG_DOCUMENT_4                  0.00
+FLAG_DOCUMENT_5                  0.00
+FLAG_DOCUMENT_6                  0.00
+FLAG_DOCUMENT_7                  0.00
+FLAG_DOCUMENT_9                  0.00
+FLAG_DOCUMENT_21                 0.00
+FLAG_DOCUMENT_10                 0.00
+FLAG_DOCUMENT_11                 0.00
+FLAG_OWN_REALTY                  0.00
+FLAG_DOCUMENT_13                 0.00
+FLAG_DOCUMENT_14                 0.00
+FLAG_DOCUMENT_15                 0.00
+FLAG_DOCUMENT_16                 0.00
+FLAG_DOCUMENT_17                 0.00
+FLAG_DOCUMENT_18                 0.00
+FLAG_DOCUMENT_19                 0.00
+FLAG_DOCUMENT_20                 0.00
+FLAG_DOCUMENT_12                 0.00
+AMT_CREDIT                       0.00
+AMT_INCOME_TOTAL                 0.00
+FLAG_PHONE                       0.00
+LIVE_CITY_NOT_WORK_CITY          0.00
+REG_CITY_NOT_WORK_CITY           0.00
+TARGET                           0.00
+REG_CITY_NOT_LIVE_CITY           0.00
+LIVE_REGION_NOT_WORK_REGION      0.00
+REG_REGION_NOT_WORK_REGION       0.00
+REG_REGION_NOT_LIVE_REGION       0.00
+HOUR_APPR_PROCESS_START          0.00
+WEEKDAY_APPR_PROCESS_START       0.00
+REGION_RATING_CLIENT_W_CITY      0.00
+REGION_RATING_CLIENT             0.00
+FLAG_EMAIL                       0.00
+FLAG_CONT_MOBILE                 0.00
+ORGANIZATION_TYPE                0.00
+FLAG_WORK_PHONE                  0.00
+FLAG_EMP_PHONE                   0.00
+FLAG_MOBIL                       0.00
+DAYS_ID_PUBLISH                  0.00
+DAYS_REGISTRATION                0.00
+DAYS_EMPLOYED                    0.00
+DAYS_BIRTH                       0.00
+REGION_POPULATION_RELATIVE       0.00
+NAME_HOUSING_TYPE                0.00
+NAME_FAMILY_STATUS               0.00
+NAME_EDUCATION_TYPE              0.00
+NAME_INCOME_TYPE                 0.00
+SK_ID_CURR                       0.00
+dtype: float64
+# For coloums having mising values more than 50%, creating a variable as null50  to store null columns
+
+null50 = null_values(ad)[null_values(ad)>50]
+# Inspecting null50
+
+print(null50)
+print()
+print("Number of columns having missing values more than 50% :",len(null50))
+COMMONAREA_MEDI             69.87
+COMMONAREA_AVG              69.87
+COMMONAREA_MODE             69.87
+NONLIVINGAPARTMENTS_MODE    69.43
+NONLIVINGAPARTMENTS_AVG     69.43
+NONLIVINGAPARTMENTS_MEDI    69.43
+FONDKAPREMONT_MODE          68.39
+LIVINGAPARTMENTS_MODE       68.35
+LIVINGAPARTMENTS_AVG        68.35
+LIVINGAPARTMENTS_MEDI       68.35
+FLOORSMIN_AVG               67.85
+FLOORSMIN_MODE              67.85
+FLOORSMIN_MEDI              67.85
+YEARS_BUILD_MEDI            66.50
+YEARS_BUILD_MODE            66.50
+YEARS_BUILD_AVG             66.50
+OWN_CAR_AGE                 65.99
+LANDAREA_MEDI               59.38
+LANDAREA_MODE               59.38
+LANDAREA_AVG                59.38
+BASEMENTAREA_MEDI           58.52
+BASEMENTAREA_AVG            58.52
+BASEMENTAREA_MODE           58.52
+EXT_SOURCE_1                56.38
+NONLIVINGAREA_MODE          55.18
+NONLIVINGAREA_AVG           55.18
+NONLIVINGAREA_MEDI          55.18
+ELEVATORS_MEDI              53.30
+ELEVATORS_AVG               53.30
+ELEVATORS_MODE              53.30
+WALLSMATERIAL_MODE          50.84
+APARTMENTS_MEDI             50.75
+APARTMENTS_AVG              50.75
+APARTMENTS_MODE             50.75
+ENTRANCES_MEDI              50.35
+ENTRANCES_AVG               50.35
+ENTRANCES_MODE              50.35
+LIVINGAREA_AVG              50.19
+LIVINGAREA_MODE             50.19
+LIVINGAREA_MEDI             50.19
+HOUSETYPE_MODE              50.18
+dtype: float64
+
+Number of columns having missing values more than 50% : 41
+Observation Number of columns having missing values more than 50% : 41 these are related to different area sizes of apartment owned/rented by the loan applicant
+null50.index
+Index(['COMMONAREA_MEDI', 'COMMONAREA_AVG', 'COMMONAREA_MODE',
+       'NONLIVINGAPARTMENTS_MODE', 'NONLIVINGAPARTMENTS_AVG',
+       'NONLIVINGAPARTMENTS_MEDI', 'FONDKAPREMONT_MODE',
+       'LIVINGAPARTMENTS_MODE', 'LIVINGAPARTMENTS_AVG',
+       'LIVINGAPARTMENTS_MEDI', 'FLOORSMIN_AVG', 'FLOORSMIN_MODE',
+       'FLOORSMIN_MEDI', 'YEARS_BUILD_MEDI', 'YEARS_BUILD_MODE',
+       'YEARS_BUILD_AVG', 'OWN_CAR_AGE', 'LANDAREA_MEDI', 'LANDAREA_MODE',
+       'LANDAREA_AVG', 'BASEMENTAREA_MEDI', 'BASEMENTAREA_AVG',
+       'BASEMENTAREA_MODE', 'EXT_SOURCE_1', 'NONLIVINGAREA_MODE',
+       'NONLIVINGAREA_AVG', 'NONLIVINGAREA_MEDI', 'ELEVATORS_MEDI',
+       'ELEVATORS_AVG', 'ELEVATORS_MODE', 'WALLSMATERIAL_MODE',
+       'APARTMENTS_MEDI', 'APARTMENTS_AVG', 'APARTMENTS_MODE',
+       'ENTRANCES_MEDI', 'ENTRANCES_AVG', 'ENTRANCES_MODE', 'LIVINGAREA_AVG',
+       'LIVINGAREA_MODE', 'LIVINGAREA_MEDI', 'HOUSETYPE_MODE'],
+      dtype='object')
+Dealing with missing value more than 50%
+# Dropping coloums having missing values more than 50%
+
+ad.drop(columns = null50.index, inplace = True)
+# Checking the number of remaing coloums after dropping 
+ad.shape
+(307511, 81)
+Observation We have 81 columns after dropping 41 columns having missing values more than 50%
+Dealing with missing value more than 15%
+# Dealing with null values more than 15%
+
+null15 = null_values(ad)[null_values(ad)>15]
+null15 
+FLOORSMAX_AVG                   49.76
+FLOORSMAX_MODE                  49.76
+FLOORSMAX_MEDI                  49.76
+YEARS_BEGINEXPLUATATION_AVG     48.78
+YEARS_BEGINEXPLUATATION_MODE    48.78
+YEARS_BEGINEXPLUATATION_MEDI    48.78
+TOTALAREA_MODE                  48.27
+EMERGENCYSTATE_MODE             47.40
+OCCUPATION_TYPE                 31.35
+EXT_SOURCE_3                    19.83
+dtype: float64
+Obseravtion Here we conclude from the columns dictionary that only 'OCCUPATION_TYPE', 'EXT_SOURCE_3 looks relevant to TARGET column
+# To drop all other at once removing 'OCCUPATION_TYPE', 'EXT_SOURCE_3' from null15.
+
+null15.drop(["EXT_SOURCE_3","OCCUPATION_TYPE"], inplace = True)
+print(null15)
+print()
+print("Number of columns having missing values more than 15% and are not reletable:",len(null15))
+FLOORSMAX_AVG                   49.76
+FLOORSMAX_MODE                  49.76
+FLOORSMAX_MEDI                  49.76
+YEARS_BEGINEXPLUATATION_AVG     48.78
+YEARS_BEGINEXPLUATATION_MODE    48.78
+YEARS_BEGINEXPLUATATION_MEDI    48.78
+TOTALAREA_MODE                  48.27
+EMERGENCYSTATE_MODE             47.40
+dtype: float64
+
+Number of columns having missing values more than 15% and are not reletable: 8
+#thus removing columns having missing values more than 15% and which are not reletable to TARGET column.
+# Column not related to TARGET column and having mising value more than 15% needs to be removed 
+
+ad.drop(null15.index,axis=1, inplace = True)
+# After dropping null_col_15, we have left with 73 columns
+
+ad.shape
+(307511, 73)
+null_values(ad).head(10)
+OCCUPATION_TYPE               31.35
+EXT_SOURCE_3                  19.83
+AMT_REQ_CREDIT_BUREAU_YEAR    13.50
+AMT_REQ_CREDIT_BUREAU_QRT     13.50
+AMT_REQ_CREDIT_BUREAU_MON     13.50
+AMT_REQ_CREDIT_BUREAU_WEEK    13.50
+AMT_REQ_CREDIT_BUREAU_DAY     13.50
+AMT_REQ_CREDIT_BUREAU_HOUR    13.50
+NAME_TYPE_SUITE                0.42
+OBS_30_CNT_SOCIAL_CIRCLE       0.33
+dtype: float64
+Analysing and removing unneccsary columns
+Dealing with EXT_SOURCE_2 , EXT_SOURCE_3
+# Understanding the relation between EXT_SOURCE_2 , EXT_SOURCE_3 columns with TARGET column using a heatmap
+
+irrev = ["EXT_SOURCE_2","EXT_SOURCE_3"] 
+plt.figure(figsize= [10,7])
+
+sns.heatmap(ad[irrev+["TARGET"]].corr(), cmap="Reds",annot=True)
+
+plt.title("Correlation between EXT_SOURCE_3, EXT_SOURCE_2, TARGET", fontdict={"fontsize":20}, pad=25)
+plt.show()
+Notebook Image
+OBSERVATION Removing these columns because there is no linear correlation
+# Dropping Columns
+ad.drop(irrev, axis=1, inplace= True)
+ad.shape
+(307511, 71)
+null_values(ad).head(10)
+OCCUPATION_TYPE               31.35
+AMT_REQ_CREDIT_BUREAU_YEAR    13.50
+AMT_REQ_CREDIT_BUREAU_QRT     13.50
+AMT_REQ_CREDIT_BUREAU_MON     13.50
+AMT_REQ_CREDIT_BUREAU_WEEK    13.50
+AMT_REQ_CREDIT_BUREAU_DAY     13.50
+AMT_REQ_CREDIT_BUREAU_HOUR    13.50
+NAME_TYPE_SUITE                0.42
+DEF_30_CNT_SOCIAL_CIRCLE       0.33
+OBS_60_CNT_SOCIAL_CIRCLE       0.33
+dtype: float64
+Dealing columns with FLAGS and their relation with TARGET columns to remove irrelevant
+To deal with flags-
+Creating a dataframe containig all FLAG columns Then plot bar graphs for each column with respect to TARGET column in which 0 for Reprayer 1 for Defaulter
+
+# Creating a variable Flagcols and adding all flags coloumns
+
+flagcols = [col for col in ad.columns if "FLAG" in col]
+
+flagcols 
+['FLAG_OWN_CAR',
+ 'FLAG_OWN_REALTY',
+ 'FLAG_MOBIL',
+ 'FLAG_EMP_PHONE',
+ 'FLAG_WORK_PHONE',
+ 'FLAG_CONT_MOBILE',
+ 'FLAG_PHONE',
+ 'FLAG_EMAIL',
+ 'FLAG_DOCUMENT_2',
+ 'FLAG_DOCUMENT_3',
+ 'FLAG_DOCUMENT_4',
+ 'FLAG_DOCUMENT_5',
+ 'FLAG_DOCUMENT_6',
+ 'FLAG_DOCUMENT_7',
+ 'FLAG_DOCUMENT_8',
+ 'FLAG_DOCUMENT_9',
+ 'FLAG_DOCUMENT_10',
+ 'FLAG_DOCUMENT_11',
+ 'FLAG_DOCUMENT_12',
+ 'FLAG_DOCUMENT_13',
+ 'FLAG_DOCUMENT_14',
+ 'FLAG_DOCUMENT_15',
+ 'FLAG_DOCUMENT_16',
+ 'FLAG_DOCUMENT_17',
+ 'FLAG_DOCUMENT_18',
+ 'FLAG_DOCUMENT_19',
+ 'FLAG_DOCUMENT_20',
+ 'FLAG_DOCUMENT_21']
+# For all FLAG and TARGET column creating fdf dataframe
+
+fdf = ad[flagcols+["TARGET"]]
+# replacing value of 0 and 1 for TARGET column
+
+fdf["TARGET"] = fdf["TARGET"].replace({1:"Defaulter", 0:"Repayer"})
+# Replacing 1 as Y (TRUE) and 0 as N (False)
+
+for i in fdf:
+    if i!= "TARGET":
+        fdf[i] = fdf[i].replace({1:"Y", 0:"N"})
+fdf.head()
+
+ # for efficient looping plotting subplots using itertools 
+import itertools 
+plt.figure(figsize = [20,24])
+
+for i,j in itertools.zip_longest(flagcols,range(len(flagcols))):
+    plt.subplot(7,4,j+1)
+    ax = sns.countplot(fdf[i], hue = fdf["TARGET"], palette = ["r","b"])
+    #plt.yticks(fontsize=8)
+    plt.xlabel("")
+    plt.ylabel("")
+    plt.title(i)
+Notebook Image
+Observation Columns having more repayers than defaulter -- FLAG_OWN_REALTY, FLAG_MOBIL ,FLAG_EMP_PHONE, FLAG_CONT_MOBILE, FLAG_DOCUMENT_3 Hence columns FLAG_OWN_REALTY, FLAG_MOBIL ,FLAG_EMP_PHONE, FLAG_CONT_MOBILE, FLAG_DOCUMENT_3 can be included and other flag Columns can be removed from analysis
+fdf.drop(["TARGET","FLAG_OWN_REALTY","FLAG_MOBIL","FLAG_DOCUMENT_3"], axis=1 , inplace = True)
+len(fdf.columns)
+25
+ad.drop(fdf.columns, axis=1, inplace= True)
+ad.shape 
+(307511, 46)
+Observation 50 column left after emoving irrelevent and missing columns
+3. Imputing values
+#Imputing values for relevent column
+null_values(ad).head(10)
+OCCUPATION_TYPE               31.35
+AMT_REQ_CREDIT_BUREAU_YEAR    13.50
+AMT_REQ_CREDIT_BUREAU_QRT     13.50
+AMT_REQ_CREDIT_BUREAU_MON     13.50
+AMT_REQ_CREDIT_BUREAU_WEEK    13.50
+AMT_REQ_CREDIT_BUREAU_DAY     13.50
+AMT_REQ_CREDIT_BUREAU_HOUR    13.50
+NAME_TYPE_SUITE                0.42
+OBS_60_CNT_SOCIAL_CIRCLE       0.33
+OBS_30_CNT_SOCIAL_CIRCLE       0.33
+dtype: float64
+Observation There are only 7 columns with missing values more than 1%. Hence analysisng and imputing only these 7 columns OCCUPATION_TYPE, AMT_REQ_CREDIT_BUREAU_YEAR, AMT_REQ_CREDIT_BUREAU_QRT, AMT_REQ_CREDIT_BUREAU_MON, AMT_REQ_CREDIT_BUREAU_WEEK, AMT_REQ_CREDIT_BUREAU_DAY, AMT_REQ_CREDIT_BUREAU_HOUR
+Imputing individual Coloum
+OCCUPATION_TYPE
+ad["OCCUPATION_TYPE"].value_counts(normalize=True)*100
+Laborers                 26.139636
+Sales staff              15.205570
+Core staff               13.058924
+Managers                 10.122679
+Drivers                   8.811576
+High skill tech staff     5.390299
+Accountants               4.648067
+Medicine staff            4.043672
+Security staff            3.183498
+Cooking staff             2.816408
+Cleaning staff            2.203960
+Private service staff     1.256158
+Low-skill Laborers        0.991379
+Waiters/barmen staff      0.638499
+Secretaries               0.618132
+Realty agents             0.355722
+HR staff                  0.266673
+IT staff                  0.249147
+Name: OCCUPATION_TYPE, dtype: float64
+Observation OCCUPATION_TYPE columnn is categorical with missing values 31.35%. To deal with this missing value imputing a category Unknown.
+ad["OCCUPATION_TYPE"] = ad["OCCUPATION_TYPE"].fillna("Unknown") 
+ad["OCCUPATION_TYPE"].isnull().sum() 
+0
+# Percentage graph of "OCCUPATION_TYPE"
+plt.figure(figsize = [12,7])
+(ad["OCCUPATION_TYPE"].value_counts()).plot.barh(color= "teal",width = .8)
+plt.title("Type of Occupations Percentage", fontdict={"fontsize":20}, pad =20)
+plt.show()
+Notebook Image
+Observation 1st Highest - Unknown 2nd Highest - Laborers
+Imputing Remaing Columns
+ad[["AMT_REQ_CREDIT_BUREAU_DAY","AMT_REQ_CREDIT_BUREAU_QRT","AMT_REQ_CREDIT_BUREAU_WEEK","AMT_REQ_CREDIT_BUREAU_MON","AMT_REQ_CREDIT_BUREAU_HOUR","AMT_REQ_CREDIT_BUREAU_YEAR"]].describe()
+
+# Making variable amtcr having these columns AMT_REQ_CREDIT_BUREAU_YEAR,AMT_REQ_CREDIT_BUREAU_QRT,AMT_REQ_CREDIT_BUREAU_MON,AMT_REQ_CREDIT_BUREAU_WEEK,AMT_REQ_CREDIT_BUREAU_DAY,AMT_REQ_CREDIT_BUREAU_HOUR
+
+
+amtcr = ["AMT_REQ_CREDIT_BUREAU_YEAR","AMT_REQ_CREDIT_BUREAU_QRT","AMT_REQ_CREDIT_BUREAU_MON","AMT_REQ_CREDIT_BUREAU_WEEK",
+"AMT_REQ_CREDIT_BUREAU_DAY","AMT_REQ_CREDIT_BUREAU_HOUR"]
+null_values(ad).head(10)
+AMT_REQ_CREDIT_BUREAU_YEAR    13.50
+AMT_REQ_CREDIT_BUREAU_QRT     13.50
+AMT_REQ_CREDIT_BUREAU_MON     13.50
+AMT_REQ_CREDIT_BUREAU_WEEK    13.50
+AMT_REQ_CREDIT_BUREAU_DAY     13.50
+AMT_REQ_CREDIT_BUREAU_HOUR    13.50
+NAME_TYPE_SUITE                0.42
+OBS_30_CNT_SOCIAL_CIRCLE       0.33
+DEF_30_CNT_SOCIAL_CIRCLE       0.33
+OBS_60_CNT_SOCIAL_CIRCLE       0.33
+dtype: float64
+Observation Missing value with low count cannot be imputed
+4. Binning Data
+ad.describe()
+
+Observation
+Negative value of days in DAYS_LAST_PHONE_CHANGE, DAYS_EMPLOYED, DAYS_REGISTRATION, DAYS_ID_PUBLISH, DAYS_BIRTH column
+
+Very high values of AMT_GOODS_PRICE , AMT_INCOME_TOTAL, AMT_CREDIT, coloumns hence making this numerical column into categorical coloums
+
+To convert DAYS_EMPLOYED to YEARS EMPLOYED and DAYS_BIRTH to AGE in years
+
+Dealing with AMT_CREDIT, AMT_GOODS_PRICE, AMT_INCOME_TOTAL
+Binning numerical columns to make a categorical column
+# Bins for income amount in Lakhs
+ad['AMT_INCOME_TOTAL']=ad['AMT_INCOME_TOTAL']/100000
+
+bins = [0,1,2,3,4,5,6,7,8,9,10,11]
+slot = ['0-1L','1L-2L', '2L-3L','3L-4L','4L-5L','5L-6L','6L-7L','7L-8L','8L-9L','9L-10L','10L Above']
+
+ad['AMT_INCOME_RANGE']=pd.cut(ad['AMT_INCOME_TOTAL'],bins,labels=slot)
+round((ad["AMT_INCOME_RANGE"].value_counts(normalize = True)*100),2)
+1L-2L        50.73
+2L-3L        21.21
+0-1L         20.73
+3L-4L         4.78
+4L-5L         1.74
+5L-6L         0.36
+6L-7L         0.28
+8L-9L         0.10
+7L-8L         0.05
+9L-10L        0.01
+10L Above     0.01
+Name: AMT_INCOME_RANGE, dtype: float64
+# Bins for Price of Goods in  Lakhs
+ad['AMT_GOODS_PRICE']=ad['AMT_GOODS_PRICE']/100000
+
+bins = [0,1,2,3,4,5,6,7,8,9,10,100]
+slots = ['0-1L','1L-2L', '2L-3L','3L-4L','4L-5L','5L-6L','6L-7L','7L-8L','8L-9L','9L-10L','10L Above']
+
+ad['AMT_GOODS_PRICE_RANGE']=pd.cut(ad['AMT_GOODS_PRICE'],bins=bins,labels=slots)
+round((ad["AMT_GOODS_PRICE_RANGE"].value_counts(normalize = True)*100),2)
+2L-3L        20.43
+4L-5L        18.54
+6L-7L        13.03
+10L Above    11.11
+1L-2L        10.73
+8L-9L         6.99
+3L-4L         6.91
+5L-6L         4.27
+0-1L          2.83
+7L-8L         2.64
+9L-10L        2.53
+Name: AMT_GOODS_PRICE_RANGE, dtype: float64
+Dealing with DAYS_ID_PUBLISH, DAYS_LAST_PHONE_CHANGE,DAYS_REGISTRATION,DAYS_BIRTH, DAYS_EMPLOYED,
+# varibale to store days columns - daycol 
+daycol = ["DAYS_BIRTH", "DAYS_EMPLOYED", "DAYS_REGISTRATION", "DAYS_ID_PUBLISH", "DAYS_LAST_PHONE_CHANGE"]
+
+ad[daycol].describe()
+
+Observation The above observation shows that describe() is giving negative value which is unusual and to remove negative value we use absolute function as below
+# For correct days value using abs() function
+ad[daycol]= abs(ad[daycol])
+# Checking the days after using using abs()
+
+ad[daycol].describe()
+
+Obseravtion negative values removed
+Dealing with DAYS_EMPLOYED, DAYS_BIRTH and binning in years
+ad["AGE"] = ad["DAYS_BIRTH"]/365
+bins = [0,20,25,30,35,40,45,50,55,60,100]
+slots = ["0-20","20-25","25-30","30-35","35-40","40-45","45-50","50-55","55-60","60 Above"]
+
+ad["AGE_GROUP"] = pd.cut(ad["AGE"], bins=bins, labels=slots)
+ad["AGE_GROUP"].value_counts(normalize= True)*100
+35-40       13.940314
+40-45       13.464884
+30-35       12.825557
+60 Above    11.569993
+45-50       11.425608
+50-55       11.362846
+55-60       10.770346
+25-30       10.686447
+20-25        3.954005
+0-20         0.000000
+Name: AGE_GROUP, dtype: float64
+#creating column "EMPLOYEMENTYEARS" from "DAYS_EMPLOYED"
+
+ad["YEARS_EMPLOYED"] = ad["DAYS_EMPLOYED"]/365
+bins = [0,5,10,15,20,25,30,50]
+slots = ["0-5","5-10","10-15","15-20","20-25","25-30","30 Above"]
+
+ad["EMPLOYEMENTYEARS"] = pd.cut(ad["YEARS_EMPLOYED"], bins=bins, labels=slots)
+ad["EMPLOYEMENTYEARS"].value_counts(normalize= True)*100
+0-5         54.061911
+5-10        25.729074
+10-15       10.926289
+15-20        4.302854
+20-25        2.476054
+25-30        1.311996
+30 Above     1.191822
+Name: EMPLOYEMENTYEARS, dtype: float64
+5. Outliers Identification
+ad.describe()
+
+# Checking unnecessary high max value of Coloum
+outlier_col = ["DAYS_REGISTRATION","AMT_CREDIT", "AMT_ANNUITY","AMT_INCOME_TOTAL","DAYS_BIRTH", "DAYS_EMPLOYED", "CNT_CHILDREN" , "AMT_GOODS_PRICE",]
+plt.figure(figsize=[15,25])
+for i,j in itertools.zip_longest(outlier_col, range(len(outlier_col))):
+    plt.subplot(4,2,j+1)
+    sns.boxplot(y = ad[i], orient = "h", color = "turquoise")
+    #plt.yticks(fontsize=8)
+    plt.xlabel("")
+    plt.ylabel("")
+    plt.title(i)
+Notebook Image
+Observation Few outliers- CNT_CHILDREN, AMT_CREDIT, AMT_ANNUITY, AMT_GOODS_PRICE No outliners- DAYS_BIRTH Outliners with values around 350000 days (958 years)- Wrong Entry Huge outliners- AMT_INCOME_TOTAL
+ad.nunique().sort_values()
+REG_CITY_NOT_LIVE_CITY              2
+REG_REGION_NOT_LIVE_REGION          2
+REG_REGION_NOT_WORK_REGION          2
+LIVE_REGION_NOT_WORK_REGION         2
+REG_CITY_NOT_WORK_CITY              2
+LIVE_CITY_NOT_WORK_CITY             2
+FLAG_MOBIL                          2
+FLAG_OWN_REALTY                     2
+NAME_CONTRACT_TYPE                  2
+TARGET                              2
+FLAG_DOCUMENT_3                     2
+REGION_RATING_CLIENT                3
+CODE_GENDER                         3
+REGION_RATING_CLIENT_W_CITY         3
+AMT_REQ_CREDIT_BUREAU_HOUR          5
+NAME_EDUCATION_TYPE                 5
+NAME_FAMILY_STATUS                  6
+NAME_HOUSING_TYPE                   6
+WEEKDAY_APPR_PROCESS_START          7
+EMPLOYEMENTYEARS                    7
+NAME_TYPE_SUITE                     7
+NAME_INCOME_TYPE                    8
+AMT_REQ_CREDIT_BUREAU_WEEK          9
+AMT_REQ_CREDIT_BUREAU_DAY           9
+AGE_GROUP                           9
+DEF_60_CNT_SOCIAL_CIRCLE            9
+DEF_30_CNT_SOCIAL_CIRCLE           10
+AMT_REQ_CREDIT_BUREAU_QRT          11
+AMT_INCOME_RANGE                   11
+AMT_GOODS_PRICE_RANGE              11
+CNT_CHILDREN                       15
+CNT_FAM_MEMBERS                    17
+OCCUPATION_TYPE                    19
+HOUR_APPR_PROCESS_START            24
+AMT_REQ_CREDIT_BUREAU_MON          24
+AMT_REQ_CREDIT_BUREAU_YEAR         25
+OBS_30_CNT_SOCIAL_CIRCLE           33
+OBS_60_CNT_SOCIAL_CIRCLE           33
+ORGANIZATION_TYPE                  58
+REGION_POPULATION_RELATIVE         81
+AMT_GOODS_PRICE                  1002
+AMT_INCOME_TOTAL                 2548
+DAYS_LAST_PHONE_CHANGE           3773
+AMT_CREDIT                       5603
+DAYS_ID_PUBLISH                  6168
+DAYS_EMPLOYED                   12574
+YEARS_EMPLOYED                  12574
+AMT_ANNUITY                     13672
+DAYS_REGISTRATION               15688
+DAYS_BIRTH                      17460
+AGE                             17460
+SK_ID_CURR                     307511
+dtype: int64
+# Checcking Unique values
+ad.info()
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 307511 entries, 0 to 307510
+Data columns (total 52 columns):
+ #   Column                       Non-Null Count   Dtype   
+---  ------                       --------------   -----   
+ 0   SK_ID_CURR                   307511 non-null  int64   
+ 1   TARGET                       307511 non-null  int64   
+ 2   NAME_CONTRACT_TYPE           307511 non-null  object  
+ 3   CODE_GENDER                  307511 non-null  object  
+ 4   FLAG_OWN_REALTY              307511 non-null  object  
+ 5   CNT_CHILDREN                 307511 non-null  int64   
+ 6   AMT_INCOME_TOTAL             307511 non-null  float64 
+ 7   AMT_CREDIT                   307511 non-null  float64 
+ 8   AMT_ANNUITY                  307499 non-null  float64 
+ 9   AMT_GOODS_PRICE              307233 non-null  float64 
+ 10  NAME_TYPE_SUITE              306219 non-null  object  
+ 11  NAME_INCOME_TYPE             307511 non-null  object  
+ 12  NAME_EDUCATION_TYPE          307511 non-null  object  
+ 13  NAME_FAMILY_STATUS           307511 non-null  object  
+ 14  NAME_HOUSING_TYPE            307511 non-null  object  
+ 15  REGION_POPULATION_RELATIVE   307511 non-null  float64 
+ 16  DAYS_BIRTH                   307511 non-null  int64   
+ 17  DAYS_EMPLOYED                307511 non-null  int64   
+ 18  DAYS_REGISTRATION            307511 non-null  float64 
+ 19  DAYS_ID_PUBLISH              307511 non-null  int64   
+ 20  FLAG_MOBIL                   307511 non-null  int64   
+ 21  OCCUPATION_TYPE              307511 non-null  object  
+ 22  CNT_FAM_MEMBERS              307509 non-null  float64 
+ 23  REGION_RATING_CLIENT         307511 non-null  int64   
+ 24  REGION_RATING_CLIENT_W_CITY  307511 non-null  int64   
+ 25  WEEKDAY_APPR_PROCESS_START   307511 non-null  object  
+ 26  HOUR_APPR_PROCESS_START      307511 non-null  int64   
+ 27  REG_REGION_NOT_LIVE_REGION   307511 non-null  int64   
+ 28  REG_REGION_NOT_WORK_REGION   307511 non-null  int64   
+ 29  LIVE_REGION_NOT_WORK_REGION  307511 non-null  int64   
+ 30  REG_CITY_NOT_LIVE_CITY       307511 non-null  int64   
+ 31  REG_CITY_NOT_WORK_CITY       307511 non-null  int64   
+ 32  LIVE_CITY_NOT_WORK_CITY      307511 non-null  int64   
+ 33  ORGANIZATION_TYPE            307511 non-null  object  
+ 34  OBS_30_CNT_SOCIAL_CIRCLE     306490 non-null  float64 
+ 35  DEF_30_CNT_SOCIAL_CIRCLE     306490 non-null  float64 
+ 36  OBS_60_CNT_SOCIAL_CIRCLE     306490 non-null  float64 
+ 37  DEF_60_CNT_SOCIAL_CIRCLE     306490 non-null  float64 
+ 38  DAYS_LAST_PHONE_CHANGE       307510 non-null  float64 
+ 39  FLAG_DOCUMENT_3              307511 non-null  int64   
+ 40  AMT_REQ_CREDIT_BUREAU_HOUR   265992 non-null  float64 
+ 41  AMT_REQ_CREDIT_BUREAU_DAY    265992 non-null  float64 
+ 42  AMT_REQ_CREDIT_BUREAU_WEEK   265992 non-null  float64 
+ 43  AMT_REQ_CREDIT_BUREAU_MON    265992 non-null  float64 
+ 44  AMT_REQ_CREDIT_BUREAU_QRT    265992 non-null  float64 
+ 45  AMT_REQ_CREDIT_BUREAU_YEAR   265992 non-null  float64 
+ 46  AMT_INCOME_RANGE             307279 non-null  category
+ 47  AMT_GOODS_PRICE_RANGE        307233 non-null  category
+ 48  AGE                          307511 non-null  float64 
+ 49  AGE_GROUP                    307511 non-null  category
+ 50  YEARS_EMPLOYED               307511 non-null  float64 
+ 51  EMPLOYEMENTYEARS             252135 non-null  category
+dtypes: category(4), float64(20), int64(17), object(11)
+memory usage: 113.8+ MB
+6. Converting Desired columns from Object to categorical column
+ad.columns
+Index(['SK_ID_CURR', 'TARGET', 'NAME_CONTRACT_TYPE', 'CODE_GENDER',
+       'FLAG_OWN_REALTY', 'CNT_CHILDREN', 'AMT_INCOME_TOTAL', 'AMT_CREDIT',
+       'AMT_ANNUITY', 'AMT_GOODS_PRICE', 'NAME_TYPE_SUITE', 'NAME_INCOME_TYPE',
+       'NAME_EDUCATION_TYPE', 'NAME_FAMILY_STATUS', 'NAME_HOUSING_TYPE',
+       'REGION_POPULATION_RELATIVE', 'DAYS_BIRTH', 'DAYS_EMPLOYED',
+       'DAYS_REGISTRATION', 'DAYS_ID_PUBLISH', 'FLAG_MOBIL', 'OCCUPATION_TYPE',
+       'CNT_FAM_MEMBERS', 'REGION_RATING_CLIENT',
+       'REGION_RATING_CLIENT_W_CITY', 'WEEKDAY_APPR_PROCESS_START',
+       'HOUR_APPR_PROCESS_START', 'REG_REGION_NOT_LIVE_REGION',
+       'REG_REGION_NOT_WORK_REGION', 'LIVE_REGION_NOT_WORK_REGION',
+       'REG_CITY_NOT_LIVE_CITY', 'REG_CITY_NOT_WORK_CITY',
+       'LIVE_CITY_NOT_WORK_CITY', 'ORGANIZATION_TYPE',
+       'OBS_30_CNT_SOCIAL_CIRCLE', 'DEF_30_CNT_SOCIAL_CIRCLE',
+       'OBS_60_CNT_SOCIAL_CIRCLE', 'DEF_60_CNT_SOCIAL_CIRCLE',
+       'DAYS_LAST_PHONE_CHANGE', 'FLAG_DOCUMENT_3',
+       'AMT_REQ_CREDIT_BUREAU_HOUR', 'AMT_REQ_CREDIT_BUREAU_DAY',
+       'AMT_REQ_CREDIT_BUREAU_WEEK', 'AMT_REQ_CREDIT_BUREAU_MON',
+       'AMT_REQ_CREDIT_BUREAU_QRT', 'AMT_REQ_CREDIT_BUREAU_YEAR',
+       'AMT_INCOME_RANGE', 'AMT_GOODS_PRICE_RANGE', 'AGE', 'AGE_GROUP',
+       'YEARS_EMPLOYED', 'EMPLOYEMENTYEARS'],
+      dtype='object')
+categorical_columns = ['ORGANIZATION_TYPE','CODE_GENDER','NAME_TYPE_SUITE','REGION_RATING_CLIENT_W_CITY','NAME_INCOME_TYPE','NAME_EDUCATION_TYPE',
+                       'NAME_FAMILY_STATUS','NAME_HOUSING_TYPE','OCCUPATION_TYPE','WEEKDAY_APPR_PROCESS_START',
+                       'FLAG_OWN_REALTY','NAME_CONTRACT_TYPE','LIVE_CITY_NOT_WORK_CITY',
+                       'REG_CITY_NOT_LIVE_CITY','REG_CITY_NOT_WORK_CITY','REG_REGION_NOT_WORK_REGION',
+                       'REGION_RATING_CLIENT','WEEKDAY_APPR_PROCESS_START',
+                       'CNT_CHILDREN','CNT_FAM_MEMBERS','LIVE_REGION_NOT_WORK_REGION']
+
+for col in categorical_columns:
+    ad[col] = pd.Categorical(ad[col])
+len(categorical_columns)
+21
+ad.info()
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 307511 entries, 0 to 307510
+Data columns (total 52 columns):
+ #   Column                       Non-Null Count   Dtype   
+---  ------                       --------------   -----   
+ 0   SK_ID_CURR                   307511 non-null  int64   
+ 1   TARGET                       307511 non-null  int64   
+ 2   NAME_CONTRACT_TYPE           307511 non-null  category
+ 3   CODE_GENDER                  307511 non-null  category
+ 4   FLAG_OWN_REALTY              307511 non-null  category
+ 5   CNT_CHILDREN                 307511 non-null  category
+ 6   AMT_INCOME_TOTAL             307511 non-null  float64 
+ 7   AMT_CREDIT                   307511 non-null  float64 
+ 8   AMT_ANNUITY                  307499 non-null  float64 
+ 9   AMT_GOODS_PRICE              307233 non-null  float64 
+ 10  NAME_TYPE_SUITE              306219 non-null  category
+ 11  NAME_INCOME_TYPE             307511 non-null  category
+ 12  NAME_EDUCATION_TYPE          307511 non-null  category
+ 13  NAME_FAMILY_STATUS           307511 non-null  category
+ 14  NAME_HOUSING_TYPE            307511 non-null  category
+ 15  REGION_POPULATION_RELATIVE   307511 non-null  float64 
+ 16  DAYS_BIRTH                   307511 non-null  int64   
+ 17  DAYS_EMPLOYED                307511 non-null  int64   
+ 18  DAYS_REGISTRATION            307511 non-null  float64 
+ 19  DAYS_ID_PUBLISH              307511 non-null  int64   
+ 20  FLAG_MOBIL                   307511 non-null  int64   
+ 21  OCCUPATION_TYPE              307511 non-null  category
+ 22  CNT_FAM_MEMBERS              307509 non-null  category
+ 23  REGION_RATING_CLIENT         307511 non-null  category
+ 24  REGION_RATING_CLIENT_W_CITY  307511 non-null  category
+ 25  WEEKDAY_APPR_PROCESS_START   307511 non-null  category
+ 26  HOUR_APPR_PROCESS_START      307511 non-null  int64   
+ 27  REG_REGION_NOT_LIVE_REGION   307511 non-null  int64   
+ 28  REG_REGION_NOT_WORK_REGION   307511 non-null  category
+ 29  LIVE_REGION_NOT_WORK_REGION  307511 non-null  category
+ 30  REG_CITY_NOT_LIVE_CITY       307511 non-null  category
+ 31  REG_CITY_NOT_WORK_CITY       307511 non-null  category
+ 32  LIVE_CITY_NOT_WORK_CITY      307511 non-null  category
+ 33  ORGANIZATION_TYPE            307511 non-null  category
+ 34  OBS_30_CNT_SOCIAL_CIRCLE     306490 non-null  float64 
+ 35  DEF_30_CNT_SOCIAL_CIRCLE     306490 non-null  float64 
+ 36  OBS_60_CNT_SOCIAL_CIRCLE     306490 non-null  float64 
+ 37  DEF_60_CNT_SOCIAL_CIRCLE     306490 non-null  float64 
+ 38  DAYS_LAST_PHONE_CHANGE       307510 non-null  float64 
+ 39  FLAG_DOCUMENT_3              307511 non-null  int64   
+ 40  AMT_REQ_CREDIT_BUREAU_HOUR   265992 non-null  float64 
+ 41  AMT_REQ_CREDIT_BUREAU_DAY    265992 non-null  float64 
+ 42  AMT_REQ_CREDIT_BUREAU_WEEK   265992 non-null  float64 
+ 43  AMT_REQ_CREDIT_BUREAU_MON    265992 non-null  float64 
+ 44  AMT_REQ_CREDIT_BUREAU_QRT    265992 non-null  float64 
+ 45  AMT_REQ_CREDIT_BUREAU_YEAR   265992 non-null  float64 
+ 46  AMT_INCOME_RANGE             307279 non-null  category
+ 47  AMT_GOODS_PRICE_RANGE        307233 non-null  category
+ 48  AGE                          307511 non-null  float64 
+ 49  AGE_GROUP                    307511 non-null  category
+ 50  YEARS_EMPLOYED               307511 non-null  float64 
+ 51  EMPLOYEMENTYEARS             252135 non-null  category
+dtypes: category(24), float64(19), int64(9)
+memory usage: 72.7 MB
+Observation 51 columns after imputing
+Dataset "previous_application.csv"
+1. Reading Dataset
+# Read data from file 'previous_application.csv' 
+pa = pd.read_csv('previous_application.csv')
+
+# Preview of the loaded data
+pa.head()
+
+#Checking rows and columns
+pa.shape
+(1670214, 37)
+#Checking information
+pa.info()
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1670214 entries, 0 to 1670213
+Data columns (total 37 columns):
+ #   Column                       Non-Null Count    Dtype  
+---  ------                       --------------    -----  
+ 0   SK_ID_PREV                   1670214 non-null  int64  
+ 1   SK_ID_CURR                   1670214 non-null  int64  
+ 2   NAME_CONTRACT_TYPE           1670214 non-null  object 
+ 3   AMT_ANNUITY                  1297979 non-null  float64
+ 4   AMT_APPLICATION              1670214 non-null  float64
+ 5   AMT_CREDIT                   1670213 non-null  float64
+ 6   AMT_DOWN_PAYMENT             774370 non-null   float64
+ 7   AMT_GOODS_PRICE              1284699 non-null  float64
+ 8   WEEKDAY_APPR_PROCESS_START   1670214 non-null  object 
+ 9   HOUR_APPR_PROCESS_START      1670214 non-null  int64  
+ 10  FLAG_LAST_APPL_PER_CONTRACT  1670214 non-null  object 
+ 11  NFLAG_LAST_APPL_IN_DAY       1670214 non-null  int64  
+ 12  RATE_DOWN_PAYMENT            774370 non-null   float64
+ 13  RATE_INTEREST_PRIMARY        5951 non-null     float64
+ 14  RATE_INTEREST_PRIVILEGED     5951 non-null     float64
+ 15  NAME_CASH_LOAN_PURPOSE       1670214 non-null  object 
+ 16  NAME_CONTRACT_STATUS         1670214 non-null  object 
+ 17  DAYS_DECISION                1670214 non-null  int64  
+ 18  NAME_PAYMENT_TYPE            1670214 non-null  object 
+ 19  CODE_REJECT_REASON           1670214 non-null  object 
+ 20  NAME_TYPE_SUITE              849809 non-null   object 
+ 21  NAME_CLIENT_TYPE             1670214 non-null  object 
+ 22  NAME_GOODS_CATEGORY          1670214 non-null  object 
+ 23  NAME_PORTFOLIO               1670214 non-null  object 
+ 24  NAME_PRODUCT_TYPE            1670214 non-null  object 
+ 25  CHANNEL_TYPE                 1670214 non-null  object 
+ 26  SELLERPLACE_AREA             1670214 non-null  int64  
+ 27  NAME_SELLER_INDUSTRY         1670214 non-null  object 
+ 28  CNT_PAYMENT                  1297984 non-null  float64
+ 29  NAME_YIELD_GROUP             1670214 non-null  object 
+ 30  PRODUCT_COMBINATION          1669868 non-null  object 
+ 31  DAYS_FIRST_DRAWING           997149 non-null   float64
+ 32  DAYS_FIRST_DUE               997149 non-null   float64
+ 33  DAYS_LAST_DUE_1ST_VERSION    997149 non-null   float64
+ 34  DAYS_LAST_DUE                997149 non-null   float64
+ 35  DAYS_TERMINATION             997149 non-null   float64
+ 36  NFLAG_INSURED_ON_APPROVAL    997149 non-null   float64
+dtypes: float64(15), int64(6), object(16)
+memory usage: 471.5+ MB
+Observation 1670214 rows and 36 columns of diffrent data types
+pa.describe()
+
+Observation 1679214 rows and 37 columns. there columns having negative, postive values which includes days. fixing is required
+# Checking Null Value
+null_values(pa)
+RATE_INTEREST_PRIVILEGED       99.64
+RATE_INTEREST_PRIMARY          99.64
+AMT_DOWN_PAYMENT               53.64
+RATE_DOWN_PAYMENT              53.64
+NAME_TYPE_SUITE                49.12
+NFLAG_INSURED_ON_APPROVAL      40.30
+DAYS_TERMINATION               40.30
+DAYS_LAST_DUE                  40.30
+DAYS_LAST_DUE_1ST_VERSION      40.30
+DAYS_FIRST_DUE                 40.30
+DAYS_FIRST_DRAWING             40.30
+AMT_GOODS_PRICE                23.08
+AMT_ANNUITY                    22.29
+CNT_PAYMENT                    22.29
+PRODUCT_COMBINATION             0.02
+AMT_CREDIT                      0.00
+NAME_YIELD_GROUP                0.00
+NAME_PORTFOLIO                  0.00
+NAME_SELLER_INDUSTRY            0.00
+SELLERPLACE_AREA                0.00
+CHANNEL_TYPE                    0.00
+NAME_PRODUCT_TYPE               0.00
+SK_ID_PREV                      0.00
+NAME_GOODS_CATEGORY             0.00
+NAME_CLIENT_TYPE                0.00
+CODE_REJECT_REASON              0.00
+SK_ID_CURR                      0.00
+DAYS_DECISION                   0.00
+NAME_CONTRACT_STATUS            0.00
+NAME_CASH_LOAN_PURPOSE          0.00
+NFLAG_LAST_APPL_IN_DAY          0.00
+FLAG_LAST_APPL_PER_CONTRACT     0.00
+HOUR_APPR_PROCESS_START         0.00
+WEEKDAY_APPR_PROCESS_START      0.00
+AMT_APPLICATION                 0.00
+NAME_CONTRACT_TYPE              0.00
+NAME_PAYMENT_TYPE               0.00
+dtype: float64
+# For coloums having mising values more than 50%, creating a variable as pnull50  to store null columns
+
+pnull50 = null_values(pa)[null_values(pa)>50]
+# Inspecting pnull50
+
+pnull50 = null_values(pa)[null_values(pa)>50]
+pnull50
+RATE_INTEREST_PRIVILEGED    99.64
+RATE_INTEREST_PRIMARY       99.64
+AMT_DOWN_PAYMENT            53.64
+RATE_DOWN_PAYMENT           53.64
+dtype: float64
+# For coloums having mising values more than 50%, dropping null columns
+
+pa.drop(columns = pnull50.index, inplace = True)
+# For coloums having mising values more than 15%, creating a variable as pnull15  to store null columns
+pnull15 = null_values(pa)[null_values(pa)>15]
+pnull15
+RATE_INTEREST_PRIVILEGED     99.64
+RATE_INTEREST_PRIMARY        99.64
+AMT_DOWN_PAYMENT             53.64
+RATE_DOWN_PAYMENT            53.64
+NAME_TYPE_SUITE              49.12
+NFLAG_INSURED_ON_APPROVAL    40.30
+DAYS_TERMINATION             40.30
+DAYS_LAST_DUE                40.30
+DAYS_LAST_DUE_1ST_VERSION    40.30
+DAYS_FIRST_DUE               40.30
+DAYS_FIRST_DRAWING           40.30
+AMT_GOODS_PRICE              23.08
+AMT_ANNUITY                  22.29
+CNT_PAYMENT                  22.29
+dtype: float64
+pa.columns
+Index(['SK_ID_PREV', 'SK_ID_CURR', 'NAME_CONTRACT_TYPE', 'AMT_ANNUITY',
+       'AMT_APPLICATION', 'AMT_CREDIT', 'AMT_DOWN_PAYMENT', 'AMT_GOODS_PRICE',
+       'WEEKDAY_APPR_PROCESS_START', 'HOUR_APPR_PROCESS_START',
+       'FLAG_LAST_APPL_PER_CONTRACT', 'NFLAG_LAST_APPL_IN_DAY',
+       'RATE_DOWN_PAYMENT', 'RATE_INTEREST_PRIMARY',
+       'RATE_INTEREST_PRIVILEGED', 'NAME_CASH_LOAN_PURPOSE',
+       'NAME_CONTRACT_STATUS', 'DAYS_DECISION', 'NAME_PAYMENT_TYPE',
+       'CODE_REJECT_REASON', 'NAME_TYPE_SUITE', 'NAME_CLIENT_TYPE',
+       'NAME_GOODS_CATEGORY', 'NAME_PORTFOLIO', 'NAME_PRODUCT_TYPE',
+       'CHANNEL_TYPE', 'SELLERPLACE_AREA', 'NAME_SELLER_INDUSTRY',
+       'CNT_PAYMENT', 'NAME_YIELD_GROUP', 'PRODUCT_COMBINATION',
+       'DAYS_FIRST_DRAWING', 'DAYS_FIRST_DUE', 'DAYS_LAST_DUE_1ST_VERSION',
+       'DAYS_LAST_DUE', 'DAYS_TERMINATION', 'NFLAG_INSURED_ON_APPROVAL'],
+      dtype='object')
+# Unnecessary columns
+Unnecessary = ['HOUR_APPR_PROCESS_START','WEEKDAY_APPR_PROCESS_START','NFLAG_LAST_APPL_IN_DAY','FLAG_LAST_APPL_PER_CONTRACT']
+
+pa.drop(Unnecessary,axis =1, inplace = True)
+
+pa.shape
+(1670214, 33)
+# Imputing Unknown as categorical column
+pa["NAME_TYPE_SUITE"] = pa["NAME_TYPE_SUITE"].fillna("Unknown")
+
+null_values(pa)
+Obseravtion Missing value found in DAYS_LAST_DUE_1ST_VERSION,DAYS_TERMINATION,DAYS_FIRST_DRAWING,DAYS_FIRST_DUE, DAYS_LAST_DUE
+#Analying numerical columns using describe 
+
+pa[pnull15.index].describe()
+
+# Creating a variable pdays for negative to positive value conversion
+
+pdays = ['DAYS_LAST_DUE_1ST_VERSION','DAYS_DECISION','DAYS_LAST_DUE', 'DAYS_FIRST_DUE','DAYS_FIRST_DRAWING','DAYS_TERMINATION']
+
+pa[pdays].describe() 
+
+# CHanging Negative value to positive
+pa[pdays] = abs(pa[pdays])
+
+pa[pnull15.index].describe() 
+
+#days group calculation e.g. 369 will be grouped as with in 2 years
+
+bins = [0,1*365,2*365,3*365,4*365,5*365,6*365,7*365,10*365]
+slots = ["1","2","3","4","5","6","7","7 above"]
+pa['YEARLY_DECISION'] = pd.cut(pa['DAYS_DECISION'],bins,labels=slots)
+pa['YEARLY_DECISION'].value_counts(normalize=True)*100
+1          34.351287
+2          23.056806
+3          12.855598
+4           7.883181
+5           6.128556
+7           5.813806
+7 above     5.060729
+6           4.850037
+Name: YEARLY_DECISION, dtype: float64
+Observation New LOan applied - 35%
+pa.nunique()
+SK_ID_PREV                     1670214
+SK_ID_CURR                      338857
+NAME_CONTRACT_TYPE                   4
+AMT_ANNUITY                     357959
+AMT_APPLICATION                  93885
+AMT_CREDIT                       86803
+AMT_DOWN_PAYMENT                 29278
+AMT_GOODS_PRICE                  93885
+WEEKDAY_APPR_PROCESS_START           7
+HOUR_APPR_PROCESS_START             24
+FLAG_LAST_APPL_PER_CONTRACT          2
+NFLAG_LAST_APPL_IN_DAY               2
+RATE_DOWN_PAYMENT               207033
+RATE_INTEREST_PRIMARY              148
+RATE_INTEREST_PRIVILEGED            25
+NAME_CASH_LOAN_PURPOSE              25
+NAME_CONTRACT_STATUS                 4
+DAYS_DECISION                     2922
+NAME_PAYMENT_TYPE                    4
+CODE_REJECT_REASON                   9
+NAME_TYPE_SUITE                      7
+NAME_CLIENT_TYPE                     4
+NAME_GOODS_CATEGORY                 28
+NAME_PORTFOLIO                       5
+NAME_PRODUCT_TYPE                    3
+CHANNEL_TYPE                         8
+SELLERPLACE_AREA                  2097
+NAME_SELLER_INDUSTRY                11
+CNT_PAYMENT                         49
+NAME_YIELD_GROUP                     5
+PRODUCT_COMBINATION                 17
+DAYS_FIRST_DRAWING                2838
+DAYS_FIRST_DUE                    2892
+DAYS_LAST_DUE_1ST_VERSION         2803
+DAYS_LAST_DUE                     2873
+DAYS_TERMINATION                  2830
+NFLAG_INSURED_ON_APPROVAL            2
+YEARLY_DECISION                      8
+dtype: int64
+null_values(pa)
+RATE_INTEREST_PRIVILEGED       99.64
+RATE_INTEREST_PRIMARY          99.64
+RATE_DOWN_PAYMENT              53.64
+AMT_DOWN_PAYMENT               53.64
+NAME_TYPE_SUITE                49.12
+DAYS_FIRST_DRAWING             40.30
+DAYS_LAST_DUE                  40.30
+DAYS_FIRST_DUE                 40.30
+DAYS_LAST_DUE_1ST_VERSION      40.30
+DAYS_TERMINATION               40.30
+NFLAG_INSURED_ON_APPROVAL      40.30
+AMT_GOODS_PRICE                23.08
+AMT_ANNUITY                    22.29
+CNT_PAYMENT                    22.29
+PRODUCT_COMBINATION             0.02
+AMT_CREDIT                      0.00
+SELLERPLACE_AREA                0.00
+CHANNEL_TYPE                    0.00
+SK_ID_PREV                      0.00
+NAME_SELLER_INDUSTRY            0.00
+NAME_YIELD_GROUP                0.00
+NAME_PORTFOLIO                  0.00
+NAME_PRODUCT_TYPE               0.00
+CODE_REJECT_REASON              0.00
+NAME_GOODS_CATEGORY             0.00
+NAME_CLIENT_TYPE                0.00
+SK_ID_CURR                      0.00
+NAME_PAYMENT_TYPE               0.00
+DAYS_DECISION                   0.00
+NAME_CONTRACT_STATUS            0.00
+NAME_CASH_LOAN_PURPOSE          0.00
+NFLAG_LAST_APPL_IN_DAY          0.00
+FLAG_LAST_APPL_PER_CONTRACT     0.00
+HOUR_APPR_PROCESS_START         0.00
+WEEKDAY_APPR_PROCESS_START      0.00
+AMT_APPLICATION                 0.00
+NAME_CONTRACT_TYPE              0.00
+YEARLY_DECISION                 0.00
+dtype: float64
+Dealing with AMT_GOODS_PRICE and AMT_ANNUITY
+To impute null values
+Preserved Distribution - MOde Skewed Distribution- Median
+
+# AMT_ANNUITY dstribution
+plt.figure(figsize=(12,6))
+sns.kdeplot(pa['AMT_ANNUITY'])
+plt.show()
+Notebook Image
+Observation As there is a single peak on the left side of distribution this suggest that there is the presence of outliers and so imputation of missing value can be done by mean
+#imputing with median 
+
+pa['AMT_ANNUITY'].fillna(pa['AMT_ANNUITY'].median(),inplace = True)
+# AMT_GOODS_PRICE distribution
+
+plt.figure(figsize=(12,6))
+sns.kdeplot(pa['AMT_GOODS_PRICE'])
+plt.show()
+Notebook Image
+Observation As there are many peaks throughout the distribution imputation can be done by mean, median or mode
+# Columns  of AMT_GOODS_PRICE that can be imputed with mean meadian mode, creating a new dataframe GP
+
+statsGP = pd.DataFrame() 
+statsGP['AMT_GOODS_PRICE_mean'] = pa['AMT_GOODS_PRICE'].fillna(pa['AMT_GOODS_PRICE'].mean())
+statsGP['AMT_GOODS_PRICE_median'] = pa['AMT_GOODS_PRICE'].fillna(pa['AMT_GOODS_PRICE'].median())
+statsGP['AMT_GOODS_PRICE_mode'] = pa['AMT_GOODS_PRICE'].fillna(pa['AMT_GOODS_PRICE'].mode()[0])
+
+cols = ['AMT_GOODS_PRICE_mean','AMT_GOODS_PRICE_median', 'AMT_GOODS_PRICE_mode']
+
+plt.figure(figsize=(18,10))
+plt.suptitle('Distribution of Original data V/s imputed data')
+plt.subplot(221)
+sns.distplot(pa['AMT_GOODS_PRICE'][pd.notnull(pa['AMT_GOODS_PRICE'])]);
+for i in enumerate(cols): 
+    plt.subplot(2,2,i[0]+2)
+    sns.distplot(statsGP[i[1]])
+Notebook Image
+Observation For missing values it will impute mode as original distribution is close with data distribution imputed with mode
+# Null value imputation with mode
+
+pa['AMT_GOODS_PRICE'].fillna(pa['AMT_GOODS_PRICE'].mode()[0], inplace=True)
+NAME_CONTRACT_STATUS-shows loans not started
+So impute CNT_PAYMENT = 0
+# Seeing value count of NAME_CONTRACT_STATUS where CNT_PAYMENT having null valuess
+pa.loc[pa['CNT_PAYMENT'].isnull(),'NAME_CONTRACT_STATUS'].value_counts()
+Canceled        305805
+Refused          40897
+Unused offer     25524
+Approved             4
+Name: NAME_CONTRACT_STATUS, dtype: int64
+# giving null value as 0
+
+pa['CNT_PAYMENT'].fillna(0,inplace = True)
+pa.columns
+Index(['SK_ID_PREV', 'SK_ID_CURR', 'NAME_CONTRACT_TYPE', 'AMT_ANNUITY',
+       'AMT_APPLICATION', 'AMT_CREDIT', 'AMT_DOWN_PAYMENT', 'AMT_GOODS_PRICE',
+       'WEEKDAY_APPR_PROCESS_START', 'HOUR_APPR_PROCESS_START',
+       'FLAG_LAST_APPL_PER_CONTRACT', 'NFLAG_LAST_APPL_IN_DAY',
+       'RATE_DOWN_PAYMENT', 'RATE_INTEREST_PRIMARY',
+       'RATE_INTEREST_PRIVILEGED', 'NAME_CASH_LOAN_PURPOSE',
+       'NAME_CONTRACT_STATUS', 'DAYS_DECISION', 'NAME_PAYMENT_TYPE',
+       'CODE_REJECT_REASON', 'NAME_TYPE_SUITE', 'NAME_CLIENT_TYPE',
+       'NAME_GOODS_CATEGORY', 'NAME_PORTFOLIO', 'NAME_PRODUCT_TYPE',
+       'CHANNEL_TYPE', 'SELLERPLACE_AREA', 'NAME_SELLER_INDUSTRY',
+       'CNT_PAYMENT', 'NAME_YIELD_GROUP', 'PRODUCT_COMBINATION',
+       'DAYS_FIRST_DRAWING', 'DAYS_FIRST_DUE', 'DAYS_LAST_DUE_1ST_VERSION',
+       'DAYS_LAST_DUE', 'DAYS_TERMINATION', 'NFLAG_INSURED_ON_APPROVAL'],
+      dtype='object')
+#Converting required categoical columns from Object to categorical 
+
+p_catgorical_col = ['CHANNEL_TYPE','CODE_REJECT_REASON','NAME_YIELD_GROUP','NAME_CLIENT_TYPE','NAME_GOODS_CATEGORY','NAME_PORTFOLIO',
+                   'NAME_PRODUCT_TYPE','NAME_SELLER_INDUSTRY','PRODUCT_COMBINATION',
+                    'NAME_CONTRACT_TYPE','NAME_CASH_LOAN_PURPOSE','NAME_CONTRACT_STATUS','NAME_PAYMENT_TYPE',]
+
+for col in p_catgorical_col:
+    pa[col] =pd.Categorical(pa[col])
+Outliers
+pa.describe()
+
+p_outlier_col = ['SELLERPLACE_AREA','CNT_PAYMENT','DAYS_DECISION','AMT_ANNUITY','AMT_APPLICATION','AMT_CREDIT','AMT_GOODS_PRICE']
+
+plt.figure(figsize=[15,25])
+for i,j in itertools.zip_longest(p_outlier_col, range(len(p_outlier_col))):
+    plt.subplot(4,2,j+1)
+    sns.boxplot(y = pa[i], orient = "h", color = "teal")
+    plt.xlabel("")
+    plt.ylabel("")
+    plt.title(i)
+Notebook Image
+Observation
+few outlier values-> CNT_PAYMENT
+less number of outliers-> DAYS_DECISION
+Very High value outliers-> SELLERPLACE_AREA,AMT_CREDIT,AMT_APPLICATION,AMT_ANNUITY,AMT_GOODS_PRICE
+Imbalance Data
+plt.figure(figsize= [14,5])
+sns.barplot(y=["Repayer","Defaulter"], x = ad["TARGET"].value_counts(), palette = ["teal","r"],orient="h")
+plt.ylabel("Loan Repayment Status",fontdict = {"fontsize":15})
+plt.xlabel("Count",fontdict = {"fontsize":15})
+plt.title("Imbalance Plot - Repayer V/s Defaulter)", fontdict = {"fontsize":25}, pad = 20)
+plt.show()
+Notebook Image
+ad['TARGET'].value_counts(normalize=True)*100
+0    91.927118
+1     8.072882
+Name: TARGET, dtype: float64
+plt.pie(ad['TARGET'].value_counts(normalize=True)*100,labels=['NON-DEFAULT (TARGET=0)','DEFAULT (TARGET=1)'],explode=(0,0.05),autopct='%1.f%%')
+plt.title('TARGET Variable - DEFAULTER Vs REPAYER')
+plt.show()
+Notebook Image
+Its clear that there is an imbalance between people who defaulted and who didn't default. More than 92% of people didn't default as opposed to 8% who defaulted.
+
+# From the remaining columns about 30 are selected based on their description and relevance with problem statement 
+#for further analysis
+FinalColumns = ['SK_ID_CURR','TARGET','CODE_GENDER','FLAG_OWN_CAR','FLAG_OWN_REALTY','INCOME_GROUP','AGE_GROUP','AMT_CREDIT','AMT_INCOME_TOTAL',
+'CREDIT_INCOME_RATIO','NAME_INCOME_TYPE','NAME_EDUCATION_TYPE','NAME_FAMILY_STATUS','NAME_HOUSING_TYPE','DAYS_EMPLOYED',
+'DAYS_REGISTRATION','FLAG_EMAIL','OCCUPATION_TYPE',
+'CNT_FAM_MEMBERS','REGION_RATING_CLIENT_W_CITY','ORGANIZATION_TYPE','SOCIAL_CIRCLE_30_DAYS_DEF_PERC',
+'SOCIAL_CIRCLE_60_DAYS_DEF_PERC','AMT_REQ_CREDIT_BUREAU_DAY',
+'AMT_REQ_CREDIT_BUREAU_MON','AMT_REQ_CREDIT_BUREAU_QRT','NAME_CONTRACT_TYPE','AMT_ANNUITY','REGION_RATING_CLIENT','AMT_GOODS_PRICE']
+# Imbalance percentage ratio to defaulter and repayer
+
+defaluter = round((ad["TARGET"].value_counts()[1]/len(ad)* 100),2)
+print("Defaulter Percentage is {}%".format(defaluter))
+repayer = round((ad["TARGET"].value_counts()[0]/len(ad)* 100),2)
+print("Repayer Percentage is {}%".format(repayer))
+print("Imbalance percentage ratio to defaulter and repayer is : {0:.2f}/1 (approx)".format(repayer/defaluter))
+Defaulter Percentage is 8.07%
+Repayer Percentage is 91.93%
+Imbalance percentage ratio to defaulter and repayer is : 11.39/1 (approx)
+Obseravtion
+Defaulter Percentage is 8.07%
+Repayer Percentage is 91.93%
+Imbalance percentage ratio to defaulter and repayer is : 11.39/1 (approx)
+print(100*ad.TARGET.value_counts()/ len(ad))
+(ad.TARGET.value_counts()/ len(ad)).plot.bar()
+plt.xticks(rotation=0)
+plt.xlabel('Loan Applicant')
+plt.ylabel('Percentage')
+plt.title('Default and Repayer Percentage',fontsize=14,)
+plt.show()
+0    91.927118
+1     8.072882
+Name: TARGET, dtype: float64
+Notebook Image
+Univariate analysis
+pa.head(10)
+
+# function to count plot for categorical variables
+def plot_uni(var):
+
+    plt.style.use('ggplot')
+    sns.despine
+    fig,ax = plt.subplots(1,1,figsize=(15,5))
+    
+    sns.countplot(x=var, data=pa,ax=ax,hue='NAME_CONTRACT_TYPE')
+    ax.set_ylabel('Total Counts')
+    ax.set_title(f'Distribution of {var}',fontsize=15)
+    ax.set_xticklabels(ax.get_xticklabels(), rotation=40, ha="right")
+    
+    plt.show()
+plot_uni('NAME_CONTRACT_TYPE')
+Notebook Image
+Observation From the above chart, we can infer that, most of the applications are for 'Cash loan' and 'Consumer loan'. Although the cash loans are refused more often than others. The above chart depecits-
+Most refused loans are cash loans
+Maximum application is for Consumer loan and Cash Loan
+plot_uni('NAME_PAYMENT_TYPE')
+Notebook Image
+Observation The chart depicts :
+Non Popular for loan repayment -> Non Cash from ypur account
+Popular for loan repayment -> Cash through bank
+plot_uni('NAME_CLIENT_TYPE')
+Notebook Image
+Observation 70% customers that apply for loan application are repeaters and also who most ofte get refused
+Correlation Check
+# Top 10 correlation
+
+corr=pa.corr()
+corr_df = corr.where(np.triu(np.ones(corr.shape),k=1).astype(np.bool)).unstack().reset_index()
+corr_df.columns=['Column1','Column2','Correlation']
+corr_df.dropna(subset=['Correlation'],inplace=True)
+corr_df['Abs_Correlation']=corr_df['Correlation'].abs()
+corr_df = corr_df.sort_values(by=['Abs_Correlation'], ascending=False)
+corr_df.head(10)
+
+Bivariate analysis on numerical columns using pairplot
+#relationship between corelated highly corelated numeric values
+
+plt.figure(figsize=[20,8])
+sns.pairplot(pa[['AMT_APPLICATION','AMT_GOODS_PRICE','AMT_CREDIT','AMT_ANNUITY','NAME_CONTRACT_STATUS']], 
+             diag_kind = 'kde', 
+             plot_kws = {'alpha': 0.4, 's': 80, 'edgecolor': 'k'},
+             size = 4)
+plt.show()
+<Figure size 1440x576 with 0 Axes>
+Notebook Image
+Observation
+The customer asked how much debt he had in the previous application
+The final amount of debt on a previous application approved by the bank
+The price of the goods the customer has requested in the previous application.
+the credit a customer has requested in a previous application is greatly influenced by the amount of Assets the client has requested in a previous application.
+
+The final amount of credit previously offered to the customer, after approval is greatly influenced by the amount of the request and the value of the goods the customer has requested in the previous application.
+
+Bivariate analysis on categorical v/s numeric columns using box plot
+# Bivariant analysis function
+def plot_by_cat_num(cat, num):
+
+    plt.style.use('ggplot')
+    sns.despine
+    fig,ax = plt.subplots(1,1,figsize=(10,8))
+    
+    sns.boxenplot(x=cat,y = num, data=pa)
+    ax.set_ylabel(f'{num}')
+    ax.set_xlabel(f'{cat}')
+
+    ax.set_title(f'{cat} Vs {num}',fontsize=15)
+    ax.set_xticklabels(ax.get_xticklabels(), rotation=40, ha="right")
+     
+    plt.show()
+# Contract status and Annuity of previous appliction
+
+plot_by_cat_num('NAME_CONTRACT_STATUS', 'AMT_ANNUITY')
+Notebook Image
+Observation The above depeicts that--
+loan application for people with
+
+high AMT ANNUITY -> gets Refused
+less AMT_ANNUITY -> gets cancelled or remains unsed
+# Analysis of Final credit and contract status after approval of amount disbursed
+
+plot_by_cat_num('NAME_CONTRACT_STATUS','AMT_CREDIT')
+Notebook Image
+Observation As AMT_CREDIT is very less so it gets cancelled
+MERGE AND ANALYSIS OF DATASET
+
+Merging DataFrames
+loan = pd.merge(ad,pa, how='inner', on='SK_ID_CURR')
+loan.head()
+
+#Checking the details of the merged dataframe
+loan.shape
+(1413701, 160)
+# checking the columns and column types of the dataframe
+loan.info()
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 1413701 entries, 0 to 1413700
+Columns: 160 entries, SK_ID_CURR to NFLAG_INSURED_ON_APPROVAL
+dtypes: category(15), float64(80), int64(46), object(19)
+memory usage: 1.6+ GB
+# Bisecting loan dataframe based on Target value 0 and 1 for correlation and other analysis
+# Repayers
+L0 = loan[loan['TARGET']==0] 
+# Defaulters
+L1 = loan[loan['TARGET']==1] 
+import jovian
+jovian.commit()
+ 
