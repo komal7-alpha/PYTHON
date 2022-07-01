@@ -1,0 +1,249 @@
+1. Importing Libraries
+# Supress Warnings
+import warnings
+warnings.filterwarnings('ignore')
+# Importing all the necessary libraries
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import itertools
+%matplotlib inline
+import random
+pd.set_option("max_rows", None)
+pd.set_option('display.max_columns', 500)
+Reading Data from File
+# Read data from file 'application_data.csv'
+zom = pd.read_csv('ZomatoData.csv')
+# Preview of the loaded data
+zom.head()
+RestaurantID RestaurantName CountryCode City Address Locality LocalityVerbose Longitude
+0 6317637 Le Petit Soue 162 Makati City
+Third
+Floor,
+Century
+City Mall,
+Kalayaan
+Avenu...
+Century City
+Mall,
+Poblacion,
+Makati City
+Century City
+Mall, Poblacion,
+Makati City,
+Mak...
+121.027535
+1 6304287 Izakaya Kikufuji 162 Makati City
+Little
+Tokyo,
+2277
+Chino
+Roces
+Avenue,
+Legaspi...
+Little Tokyo,
+Legaspi
+Village,
+Makati City
+Little Tokyo,
+Legaspi Village,
+Makati City,
+Ma...
+121.014101
+2 6300002
+Heat - Edsa
+Shangri-La
+162
+Mandaluyong
+City
+Edsa
+ShangriLa, 1
+Garden
+Way,
+Ortigas,
+Mandal...
+Edsa ShangriLa, Ortigas,
+Mandaluyong
+City
+Edsa ShangriLa, Ortigas,
+Mandaluyong
+City, Ma...
+121.056831
+3 6318506 Ooma 162
+Mandaluyong
+City
+Third
+Floor,
+Mega
+Fashion
+Hall, SM
+Megamall,
+O...
+SM
+Megamall,
+Ortigas,
+Mandaluyong
+City
+SM Megamall,
+Ortigas,
+Mandaluyong
+City, Mandal...
+121.056475
+2. Understanding Dataset
+# Checking the number of rows and coloums of the given datset
+zom.shape
+(9551, 19)
+# Information about the rows and coloums of the given dataset
+zom.info("all")
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 9551 entries, 0 to 9550
+Data columns (total 19 columns):
+# Column Non-Null Count Dtype
+--- ------ -------------- -----
+0 RestaurantID 9551 non-null int64
+1 RestaurantName 9551 non-null object
+2 CountryCode 9551 non-null int64
+3 City 9551 non-null object
+4 Address 9551 non-null object
+5 Locality 9551 non-null object
+6 LocalityVerbose 9551 non-null object
+7 Longitude 9551 non-null float64
+8 Latitude 9551 non-null float64
+9 Cuisines 9542 non-null object
+10 Currency 9551 non-null object
+11 Has_Table_booking 9551 non-null object
+12 Has_Online_delivery 9551 non-null object
+13 Is_delivering_now 9551 non-null object
+14 Switch_to_order_menu 9551 non-null object
+15 Price_range 9551 non-null int64
+16 Votes 9551 non-null int64
+17 Average_Cost_for_two 9551 non-null int64
+18 Rating 9551 non-null float64
+RestaurantID RestaurantName CountryCode City Address Locality LocalityVerbose Longitude
+4 6314302 Sambo Kojin 162
+Mandaluyong
+City
+Third
+Floor,
+Mega
+Atrium,
+SM
+Megamall,
+Ortigas...
+SM
+Megamall,
+Ortigas,
+Mandaluyong
+City
+SM Megamall,
+Ortigas,
+Mandaluyong
+City, Mandal...
+121.057508
+dtypes: float64(3), int64(5), object(11)
+memory usage: 1.4+ MB
+Observation There are 9551 rows and 19 columns of different data types.
+# Description of the given dataset
+zom.describe()
+* Observation
+9551 rows and 19 columns.
+Standardising is required for the columns having very high values.
+Columns including days have positive , negative values which needs to be change.
+3. Data Cleaning & Manipulation
+# Finding out number of null values by creating a function for the given dataframe
+def null_values(df):
+return round((df.isnull().sum()*100/len(df)).sort_values(ascending = False),2)
+null_values(zom)
+Cuisines 0.09
+Currency 0.00
+Average_Cost_for_two 0.00
+Votes 0.00
+Price_range 0.00
+Switch_to_order_menu 0.00
+Is_delivering_now 0.00
+Has_Online_delivery 0.00
+RestaurantID CountryCode Longitude Latitude Price_range Votes Average_Cost_for_two
+count 9.551000e+03 9551.000000 9551.000000 9551.000000 9551.000000 9551.000000 9551.000000
+mean 9.051128e+06 18.365616 64.126574 25.854381 1.804837 156.909748 1199.210763
+std 8.791521e+06 56.750546 41.467058 11.007935 0.905609 430.169145 16121.183073
+min 5.300000e+01 1.000000 -157.948486 -41.330428 1.000000 0.000000 0.000000
+25% 3.019625e+05 1.000000 77.081343 28.478713 1.000000 5.000000 250.000000
+50% 6.004089e+06 1.000000 77.191964 28.570469 2.000000 31.000000 400.000000
+75% 1.835229e+07 1.000000 77.282006 28.642758 2.000000 131.000000 700.000000
+max 1.850065e+07 216.000000 174.832089 55.976980 4.000000 10934.000000 800000.000000
+Has_Table_booking 0.00
+RestaurantID 0.00
+RestaurantName 0.00
+Latitude 0.00
+Longitude 0.00
+LocalityVerbose 0.00
+Locality 0.00
+Address 0.00
+City 0.00
+CountryCode 0.00
+Rating 0.00
+dtype: float64
+# Inspecting null50
+print(null50)
+print()
+print("Number of columns having missing values more than 50% :",len(null50))
+Series([], dtype: float64)
+Number of columns having missing values more than 50% : 0
+Observation Number of columns having missing values more than 50% : 41 these are related to different area
+sizes of apartment owned/rented by the loan applicant
+null50.index
+Index([], dtype='object')
+Dealing with missing value more than 50%
+# Dropping coloums having missing values more than 50%
+zom.drop(columns = null50.index, inplace = True)
+# Checking the number of remaing coloums after dropping
+zom.shape
+(9551, 19)
+Observation We have 81 columns after dropping 41 columns having missing values more than 50%
+Dealing with missing value more than 15%
+# For coloums having mising values more than 50%, creating a variable as null50 to sto
+null50 = null_values(zom)[null_values(zom)>50]
+# Dealing with null values more than 15%
+null15 = null_values(zom)[null_values(zom)>15]
+null15
+Series([], dtype: float64)
+Obseravtion Here we conclude from the columns dictionary that only 'OCCUPATION_TYPE', 'EXT_SOURCE_3
+looks relevant to TARGET column
+# To drop all other at once removing 'OCCUPATION_TYPE', 'EXT_SOURCE_3' from null15.
+null15.drop([], inplace = True)
+Series([], dtype: float64)
+Number of columns having missing values more than 15% and are not reletable: 0
+# After dropping null_col_15, we have left with 73 columns
+zom.shape
+(9551, 19)
+null_values(zom).head(10)
+Cuisines 0.09
+Currency 0.00
+Average_Cost_for_two 0.00
+Votes 0.00
+Price_range 0.00
+Switch_to_order_menu 0.00
+Is_delivering_now 0.00
+Has_Online_delivery 0.00
+Has_Table_booking 0.00
+RestaurantID 0.00
+dtype: float64
+Analysing and removing unneccsary columns
+print(null15)
+print()
+print("Number of columns having missing values more than 15% and are not reletable:",le
+#thus removing columns having missing values more than 15% and which are not reletable
+# Column not related to TARGET column and having mising value more than 15% needs to be
+zom.drop(null15.index,axis=1, inplace = True)
+irrev = []
+# Dropping Columns
+zom.drop(irrev, axis=1, inplace= True)
+zom.shape
+(9551, 19)
+# Creating a variable Flagcols and adding all flags coloumns
+flagcols = [col for col in zom.columns if "FLAG" in col]
+flagcols
+[]
+jovian.commit()
+import jovian
